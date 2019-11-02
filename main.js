@@ -17,7 +17,7 @@ socket.on('connect', function() {
 	 * var user_id = process.env.BOT_USER_ID;
 	 */
 	var user_id = process.env.BOT_USER_ID;
-	var username = 'Example Bot';
+	var username = 'rukeeBot';
 
 	// Set the username for the bot.
 	// This should only ever be done once. See the API reference for more details.
@@ -25,7 +25,7 @@ socket.on('connect', function() {
 
 	// Join a custom game and force start immediately.
 	// Custom games are a great way to test your bot while you develop it because you can play against your bot!
-	var custom_game_id = 'my_private_game';
+	var custom_game_id = '13fe3e51-fbc6-43ff';
 	socket.emit('join_private', custom_game_id, user_id);
 	socket.emit('set_force_start', custom_game_id, true);
 	console.log('Joined custom game at http://bot.generals.io/games/' + encodeURIComponent(custom_game_id));
@@ -57,6 +57,17 @@ var generals; // The indicies of generals we have vision of.
 var cities = []; // The indicies of cities we have vision of.
 var map = [];
 
+var myGeneralLocation = null
+var myGeneralLocationKnown = false
+
+var terrain
+var mostRecentMove
+
+
+var mapWidth
+var mapHeight
+var mapSize
+
 /* Returns a new array created by patching the diff into the old array.
  * The diff formatted with alternating matching and mismatching segments:
  * <Number of matching elements>
@@ -83,6 +94,33 @@ function patch(old, diff) {
 	return out;
 }
 
+function getRowCol(square){
+	var row = Math.floor(square / mapWidth)
+	var col = square % mapWidth
+	return [row, col]
+
+}
+
+function possibleMovesFromLocation(square){
+
+	var [row, col] = getRowCol(square)
+
+	var leftSquare = col > 0 ? square - 1 : -2
+	var rightSquare = col < mapWidth - 1 ? square + 1 : -2
+	var downSquare = row < mapHeight -1 ? square + mapWidth : -2
+	var upSquare = row > 0 ? square - mapWidth : -2
+
+	var possibleMoves = [leftSquare, rightSquare, upSquare, downSquare].filter(el => el > -1 && terrain[el] !== -2)
+
+	return possibleMoves //As indexes
+}
+
+function enemyTerrainVisible(terrainMap){
+	var visible = terrainMap.some(tile => tile > -1 && tile !== playerIndex)
+	console.log(visible)
+	return visible
+}
+
 socket.on('game_start', function(data) {
 	// Get ready to start playing the game.
 	playerIndex = data.playerIndex;
@@ -98,23 +136,24 @@ socket.on('game_update', function(data) {
 	generals = data.generals;
 	// console.log(data.generals)
 	// The first two terms in |map| are the dimensions.
-	var width = map[0];
-	var height = map[1];
-	var size = width * height;
+	mapWidth = map[0];
+	mapHeight = map[1];
+	mapSize = mapWidth * mapHeight;
+	myGeneralLocationKnown ? null : myGeneralLocation = generals.filter(el => el > 0)[0]
+	// console.log(myGeneralLocation)
 
 	// The next |size| terms are army values.
 	// armies[0] is the top-left corner of the map.
-	var armies = map.slice(2, size + 2);
+	var armies = map.slice(2, mapSize + 2);
 
 	// The last |size| terms are terrain values.
 	// terrain[0] is the top-left corner of the map.
-	var terrain = map.slice(size + 2, size + 2 + size);
-
-	// Make a random move.
+	terrain = map.slice(mapSize + 2, mapSize + 2 + mapSize);
+	
+	// Make a move.
 	while (true) {
 		// Pick a random tile.
-		// var index = Math.floor(Math.random() * size);
-
+		console.log(cities)
 		// Find all my tiles
 		var myOccupiedTerrain = []
 		terrain.forEach((el, idx) => {
@@ -127,7 +166,7 @@ socket.on('game_update', function(data) {
 		// console.log(`Biggest Size Army: ${biggestArmySize}`)
 		var biggestArmyIndex = myOccupiedTerrain[0]
 		// console.log(`BiggestIndex: ${biggestArmyIndex}`)
-		myOccupiedTerrain.forEach((el, idx) => {
+		myOccupiedTerrain.forEach(el => {
 			if(armies[el] > biggestArmySize){
 				biggestArmySize = armies[el]
 				biggestArmyIndex = el
@@ -135,27 +174,58 @@ socket.on('game_update', function(data) {
 		})
 		var index = biggestArmyIndex
 		// console.log(`Start Index: ${index}`)
-		var row = Math.floor(index / width)
-		var col = index % width
-		var endIndex = index
-
-		var leftSquare = col > 0 ? endIndex - 1 : -2
-		var rightSquare = col < width - 1 ? endIndex + 1 : -2
-		var downSquare = row < height -1 ? endIndex + width : -2
-		var upSquare = row > 0 ? endIndex - width : -2
-
-		var options = [leftSquare, rightSquare, upSquare, downSquare]
-		// console.log(`Options: ${options}`)
-		var targetOptions = options.filter(el => terrain[el] !== -2 && terrain[el] !== playerIndex && el !== -2 && terrain[el] > 0)
-		// console.log(targetOptions)
-		var preferredOptions = options.filter(el => terrain[el] !== -2 && terrain[el] !== playerIndex && el !== -2)
 		
-		var viableOptions = options.filter(el => terrain[el] !== -2 && el !== -2)
+		var options = possibleMovesFromLocation(index)
+
+		var visibleCities
+		var targetVisibleCity = []
+		if(cities.length > 0 && myOccupiedTerrain.length > 8){
+			visibleCities = cities.slice()
+			for(i = 0; i < visibleCities.length; i++){
+				if(terrain[visibleCities[i]] === playerIndex){
+					visibleCities.splice(i, 1, 'Player Controlled')
+				}
+			}
+			visibleCities.forEach(city => {
+				if (city !== 'Player Controlled'){
+					targetVisibleCity.push(city)
+				}
+			})
+			console.log(`Target: ${targetVisibleCity}`)
+			console.log(`VisibleCities: ${visibleCities}`)
+		}
+		var cityClosestMove = false
+
+		if(targetVisibleCity[0]){
+			var optionsCopy = options.slice()
+			cityClosestMoveScore = mapWidth + mapHeight
+			cityClosestMove = optionsCopy[0]
+			var [cityRow, cityCol] = getRowCol(targetVisibleCity[0])
+			optionsCopy.forEach(tile => {
+				var [moveRow, moveCol] = getRowCol(tile)
+				var score = Math.abs(cityRow - moveRow) + Math.abs(cityCol - moveCol)
+				console.log(`Tile: ${tile} Score: ${score} CityClosestMove: ${cityClosestMove}`)
+				if (score < cityClosestMoveScore){
+					cityClosestMoveScore = score
+					cityClosestMove = tile
+				}
+			})
+			console.log(`Closest Move Final: ${cityClosestMove}`)
+		}
+		
+		// console.log(`Options: ${options}`)
+		var targetOptions = options.filter(el => terrain[el] !== -2 && terrain[el] !== playerIndex && terrain[el] > 0)
+		// console.log(targetOptions)
+		var preferredOptions = options.filter(el => terrain[el] !== -2 && terrain[el] !== playerIndex)
+		
+		var viableOptions = options.filter(el => terrain[el] !== -2)
 		// console.log(`Preferred Options: ${preferredOptions}`)
 		// console.log(`Viable Options: ${viableOptions}`)
 		var choice;
 
-		if (targetOptions.length > 0) {
+		if (cityClosestMove && !enemyTerrainVisible(terrain)){
+			choice = cityClosestMove
+	    } else if (targetOptions.length > 0) {
 			choice = targetOptions[Math.floor(Math.random() * targetOptions.length)]
 		} else if(preferredOptions.length > 0){
 			choice = preferredOptions[Math.floor(Math.random() * preferredOptions.length)]
@@ -164,11 +234,12 @@ socket.on('game_update', function(data) {
 		}
 
 		// console.log(`Choice: ${choice}`)
-		if (data.generals.includes(biggestArmyIndex)){
+		if (myGeneralLocation === index){
 			is50 = true
 		}
 
 		socket.emit('attack', index, choice, is50)
+		mostRecentMove = choice
 		break;
 	}
 });
