@@ -96,7 +96,7 @@ socket.on('game_update', function(data) {
 	cities = patch(cities, data.cities_diff);
 	map = patch(map, data.map_diff);
 	generals = data.generals;
-
+	// console.log(data.generals)
 	// The first two terms in |map| are the dimensions.
 	var width = map[0];
 	var height = map[1];
@@ -122,6 +122,7 @@ socket.on('game_update', function(data) {
 				myOccupiedTerrain.push(idx)
 			}
 		})
+		var is50 = false
 		var biggestArmySize = armies[myOccupiedTerrain[0]]
 		// console.log(`Biggest Size Army: ${biggestArmySize}`)
 		var biggestArmyIndex = myOccupiedTerrain[0]
@@ -140,53 +141,35 @@ socket.on('game_update', function(data) {
 
 		var leftSquare = col > 0 ? endIndex - 1 : -2
 		var rightSquare = col < width - 1 ? endIndex + 1 : -2
-		var upSquare = row < height -1 ? endIndex - width : -2
-		var downSquare = row > 0 ? endIndex + width : -2
+		var downSquare = row < height -1 ? endIndex + width : -2
+		var upSquare = row > 0 ? endIndex - width : -2
 
 		var options = [leftSquare, rightSquare, upSquare, downSquare]
 		// console.log(`Options: ${options}`)
-		var preferredOptions = options.filter(el => {
-			terrain[el] !== -2 && terrain[el] !== playerIndex
-		})
-		const filterMountainsAndSuch = (item) => {
-			if(terrain[item] !== -2 && item !== -2){
-				return item
-			}
-		}
+		var targetOptions = options.filter(el => terrain[el] !== -2 && terrain[el] !== playerIndex && el !== -2 && terrain[el] > 0)
+		// console.log(targetOptions)
+		var preferredOptions = options.filter(el => terrain[el] !== -2 && terrain[el] !== playerIndex && el !== -2)
+		
 		var viableOptions = options.filter(el => terrain[el] !== -2 && el !== -2)
-		console.log(`Preferred Options: ${preferredOptions}`)
+		// console.log(`Preferred Options: ${preferredOptions}`)
 		// console.log(`Viable Options: ${viableOptions}`)
-		var choice = preferredOptions.length > 0 ? preferredOptions[Math.floor(Math.random() * preferredOptions.length)] : viableOptions[Math.floor(Math.random() * viableOptions.length)]
+		var choice;
+
+		if (targetOptions.length > 0) {
+			choice = targetOptions[Math.floor(Math.random() * targetOptions.length)]
+		} else if(preferredOptions.length > 0){
+			choice = preferredOptions[Math.floor(Math.random() * preferredOptions.length)]
+		} else {
+			choice = viableOptions[Math.floor(Math.random() * viableOptions.length)]
+		}
+
 		// console.log(`Choice: ${choice}`)
-		socket.emit('attack', index, choice)
+		if (data.generals.includes(biggestArmyIndex)){
+			is50 = true
+		}
+
+		socket.emit('attack', index, choice, is50)
 		break;
-		// If we own this tile, make a random move starting from it.
-		// if (terrain[index] === playerIndex) {
-		// 	var row = Math.floor(index / width);
-		// 	var col = index % width;
-		// 	var endIndex = index;
-
-		// 	var rand = Math.random();
-		// 	if (rand < 0.25 && col > 0) { // left
-		// 		endIndex--;
-		// 	} else if (rand < 0.5 && col < width - 1) { // right
-		// 		endIndex++;
-		// 	} else if (rand < 0.75 && row < height - 1) { // down
-		// 		endIndex += width;
-		// 	} else if (row > 0) { //up
-		// 		endIndex -= width;
-		// 	} else {
-		// 		continue;
-		// 	}
-
-		// 	// Would we be attacking a city? Don't attack cities.
-		// 	if (cities.indexOf(endIndex) >= 0) {
-		// 		continue;
-		// 	}
-
-		// 	socket.emit('attack', index, endIndex);
-		// 	break;
-		// }
 	}
 });
 
