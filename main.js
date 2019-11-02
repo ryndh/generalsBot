@@ -16,7 +16,7 @@ socket.on('connect', function() {
 	 * replacing this line with something that instead supplies the user_id via an environment variable, e.g.
 	 * var user_id = process.env.BOT_USER_ID;
 	 */
-	var user_id = 'my_example_bot_id';
+	var user_id = process.env.BOT_USER_ID;
 	var username = 'Example Bot';
 
 	// Set the username for the bot.
@@ -88,6 +88,7 @@ socket.on('game_start', function(data) {
 	playerIndex = data.playerIndex;
 	var replay_url = 'http://bot.generals.io/replays/' + encodeURIComponent(data.replay_id);
 	console.log('Game starting! The replay will be available after the game at ' + replay_url);
+	console.log(`PlayerIndex is ${playerIndex}`)
 });
 
 socket.on('game_update', function(data) {
@@ -112,40 +113,86 @@ socket.on('game_update', function(data) {
 	// Make a random move.
 	while (true) {
 		// Pick a random tile.
-		var index = Math.floor(Math.random() * size);
+		// var index = Math.floor(Math.random() * size);
 
-		// If we own this tile, make a random move starting from it.
-		if (terrain[index] === playerIndex) {
-			var row = Math.floor(index / width);
-			var col = index % width;
-			var endIndex = index;
-
-			var rand = Math.random();
-			if (rand < 0.25 && col > 0) { // left
-				endIndex--;
-			} else if (rand < 0.5 && col < width - 1) { // right
-				endIndex++;
-			} else if (rand < 0.75 && row < height - 1) { // down
-				endIndex += width;
-			} else if (row > 0) { //up
-				endIndex -= width;
-			} else {
-				continue;
+		// Find all my tiles
+		var myOccupiedTerrain = []
+		terrain.forEach((el, idx) => {
+			if(el === playerIndex){
+				myOccupiedTerrain.push(idx)
 			}
-
-			// Would we be attacking a city? Don't attack cities.
-			if (cities.indexOf(endIndex) >= 0) {
-				continue;
+		})
+		var biggestArmySize = armies[myOccupiedTerrain[0]]
+		// console.log(`Biggest Size Army: ${biggestArmySize}`)
+		var biggestArmyIndex = myOccupiedTerrain[0]
+		// console.log(`BiggestIndex: ${biggestArmyIndex}`)
+		myOccupiedTerrain.forEach((el, idx) => {
+			if(armies[el] > biggestArmySize){
+				biggestArmySize = armies[el]
+				biggestArmyIndex = el
 			}
+		})
+		var index = biggestArmyIndex
+		// console.log(`Start Index: ${index}`)
+		var row = Math.floor(index / width)
+		var col = index % width
+		var endIndex = index
 
-			socket.emit('attack', index, endIndex);
-			break;
+		var leftSquare = col > 0 ? endIndex - 1 : -2
+		var rightSquare = col < width - 1 ? endIndex + 1 : -2
+		var upSquare = row < height -1 ? endIndex - width : -2
+		var downSquare = row > 0 ? endIndex + width : -2
+
+		var options = [leftSquare, rightSquare, upSquare, downSquare]
+		// console.log(`Options: ${options}`)
+		var preferredOptions = options.filter(el => {
+			terrain[el] !== -2 && terrain[el] !== playerIndex
+		})
+		const filterMountainsAndSuch = (item) => {
+			if(terrain[item] !== -2 && item !== -2){
+				return item
+			}
 		}
+		var viableOptions = options.filter(el => terrain[el] !== -2 && el !== -2)
+		console.log(`Preferred Options: ${preferredOptions}`)
+		// console.log(`Viable Options: ${viableOptions}`)
+		var choice = preferredOptions.length > 0 ? preferredOptions[Math.floor(Math.random() * preferredOptions.length)] : viableOptions[Math.floor(Math.random() * viableOptions.length)]
+		// console.log(`Choice: ${choice}`)
+		socket.emit('attack', index, choice)
+		break;
+		// If we own this tile, make a random move starting from it.
+		// if (terrain[index] === playerIndex) {
+		// 	var row = Math.floor(index / width);
+		// 	var col = index % width;
+		// 	var endIndex = index;
+
+		// 	var rand = Math.random();
+		// 	if (rand < 0.25 && col > 0) { // left
+		// 		endIndex--;
+		// 	} else if (rand < 0.5 && col < width - 1) { // right
+		// 		endIndex++;
+		// 	} else if (rand < 0.75 && row < height - 1) { // down
+		// 		endIndex += width;
+		// 	} else if (row > 0) { //up
+		// 		endIndex -= width;
+		// 	} else {
+		// 		continue;
+		// 	}
+
+		// 	// Would we be attacking a city? Don't attack cities.
+		// 	if (cities.indexOf(endIndex) >= 0) {
+		// 		continue;
+		// 	}
+
+		// 	socket.emit('attack', index, endIndex);
+		// 	break;
+		// }
 	}
 });
 
 function leaveGame() {
 	socket.emit('leave_game');
+	process.exit(1);
 }
 
 socket.on('game_lost', leaveGame);
