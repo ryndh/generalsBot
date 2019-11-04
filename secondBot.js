@@ -1,7 +1,7 @@
 var io = require('socket.io-client');
-require('dotenv').config()
 
 var socket = io('http://botws.generals.io');
+require('dotenv').config()
 
 socket.on('disconnect', function() {
 	console.error('Disconnected from server.');
@@ -17,9 +17,9 @@ socket.on('connect', function() {
 	 * replacing this line with something that instead supplies the user_id via an environment variable, e.g.
 	 * var user_id = process.env.BOT_USER_ID;
 	 */
-	var user_id = process.env.BOT_USER_ID;
+  var user_id = process.env.BOT_USER_ID2;
 
-	var username = 'rukeeBot';
+	var username = 'rukeeBot2';
 
 	// Set the username for the bot.
 	// This should only ever be done once. See the API reference for more details.
@@ -27,10 +27,10 @@ socket.on('connect', function() {
 
 	// Join a custom game and force start immediately.
 	// Custom games are a great way to test your bot while you develop it because you can play against your bot!
-	var custom_game_id = '13fe3e51-fbc6-43ff';
-
+  var custom_game_id = '13fe3e51-fbc6-43ff';
+  
 	// socket.emit('play', user_id);	
-	
+
 	socket.emit('join_private', custom_game_id, user_id);
 	socket.emit('set_force_start', custom_game_id, true);
 	console.log('Joined custom game at http://bot.generals.io/games/' + encodeURIComponent(custom_game_id));
