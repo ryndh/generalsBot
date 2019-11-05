@@ -23,22 +23,22 @@ function possibleMovesFromLocation(square, terrain){
 	return possibleMoves //As indexes
 }
 
-function moveTowardsTarget(moves, target, path){
-  var movesCopy = moves.slice()
-  moveScore = mapWidth + mapHeight
-  move = movesCopy[0]
-  var [targetRow, targetCol] = getRowCol(target)
-  movesCopy.forEach(tile => {
-    var [moveRow, moveCol] = getRowCol(tile)
-    var score = Math.abs(targetRow - moveRow) + Math.abs(targetCol - moveCol)
-    // console.log(`Tile: ${tile} Score: ${score} CityClosestMove: ${cityClosestMove}`)
-    if (score <= moveScore){
-      moveScore = score
-      path.includes(tile) ? null : move = tile
-    } 
-  })
-  return move
-}
+// function moveTowardsTarget(moves, target, path){
+//   // var movesCopy = moves.slice()
+//   // moveScore = mapWidth + mapHeight
+//   // move = movesCopy[0]
+//   // var [targetRow, targetCol] = getRowCol(target)
+//   movesCopy.forEach(tile => {
+//     var [moveRow, moveCol] = getRowCol(tile)
+//     var score = Math.abs(targetRow - moveRow) + Math.abs(targetCol - moveCol)
+//     // console.log(`Tile: ${tile} Score: ${score} CityClosestMove: ${cityClosestMove}`)
+//     if (score <= moveScore){
+//       moveScore = score
+//       path.includes(tile) ? null : move = tile
+//     }  
+//   })
+//   return move
+// }
 
 let terrainHard = [ -1, -1, -1, -1, -1, 
                      1,  1,  1, -2,  2,
@@ -51,28 +51,42 @@ let terrainEasy = [ -1, -1, -1, -1, -1,
                     -1, -1, -1, -1, -1,
                     -1,  1,  1, -1, -1, 
                     -1, -1, -1, -1, -1 ]
+let terrainHard2 = [ -1, -1, -1, -1, -1, 
+                      1, -2,  1, -2, -1,
+                      1, -2, -2, -2, -1,
+                      1,  1,  1, -2,  2, 
+                     -1, -1, -1, -2, -1 ]
 
 // destination will be index 9
 // start will be index 16
 
-function findMyPath(terrainMap, currentLocation, destination, path = [currentLocation], wrongWay = [currentLocation]){
+function findMyPath(terrainMap, currentLocation, destination, path = [currentLocation], wrongWay = []){
   if (currentLocation !== destination){
 
     var terrain = terrainMap
     let potentialMoves = possibleMovesFromLocation(currentLocation, terrain)
     let filteredMoves = potentialMoves.filter(el => !wrongWay.includes(el))
-    let nextMove = moveTowardsTarget(filteredMoves, destination, path)
-    if(nextMove === undefined){
-      wrongWay.push(currentLocation)
-      let whereWeWentWrong = path.indexOf(currentLocation)
-      let previousIndex = path.indexOf(currentLocation - 1)
-      path.splice(whereWeWentWrong)
-      nextMove = path[previousIndex]
-    }
+
+    var [targetRow, targetCol] = getRowCol(destination)
+    var movesCopy = filteredMoves.slice()
+    var moveScore = mapWidth + mapHeight
+    var move = movesCopy[0]
+    movesCopy.forEach(tile => {
+      var [moveRow, moveCol] = getRowCol(tile)
+      var score = Math.abs(targetRow - moveRow) + Math.abs(targetCol - moveCol)
+      // console.log(`Tile: ${tile} Score: ${score} CityClosestMove: ${cityClosestMove}`)
+      if (score <= moveScore){
+        moveScore = score
+        path.includes(tile) ? null : move = tile
+      }  
+    })
+
+    let nextMove = move
+
     if(path.includes(nextMove)){
       wrongWay.push(currentLocation)
-      let whereWeWentWrong = path.indexOf(nextMove)
-      path.splice(whereWeWentWrong)
+      var wentWrong = path.indexOf(nextMove)
+      path.splice(wentWrong)
     }
     path.push(nextMove)
     findMyPath(terrainMap, nextMove, destination, path, wrongWay)
@@ -81,7 +95,8 @@ function findMyPath(terrainMap, currentLocation, destination, path = [currentLoc
 }
 
 // console.log(findMyPath(terrainEasy, 16, 9))
-console.log(findMyPath(terrainHard, 16, 9))
+// console.log(findMyPath(terrainHard, 16, 9))
+console.log(findMyPath(terrainHard2, 19, 14))
 
 
 // const teamBuilder = (studentList, teams, currentTeams = {}) => {

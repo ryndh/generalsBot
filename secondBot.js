@@ -1,7 +1,7 @@
 var io = require('socket.io-client');
+require('dotenv').config()
 
 var socket = io('http://botws.generals.io');
-require('dotenv').config()
 
 socket.on('disconnect', function() {
 	console.error('Disconnected from server.');
@@ -17,9 +17,9 @@ socket.on('connect', function() {
 	 * replacing this line with something that instead supplies the user_id via an environment variable, e.g.
 	 * var user_id = process.env.BOT_USER_ID;
 	 */
-  var user_id = process.env.BOT_USER_ID2;
+	var user_id = process.env.BOT_USER_ID2;
 
-	var username = 'rukeeBot2';
+	var username = '[Bot]rukee2';
 
 	// Set the username for the bot.
 	// This should only ever be done once. See the API reference for more details.
@@ -27,12 +27,14 @@ socket.on('connect', function() {
 
 	// Join a custom game and force start immediately.
 	// Custom games are a great way to test your bot while you develop it because you can play against your bot!
-  var custom_game_id = '13fe3e51-fbc6-43ff';
-  
-	// socket.emit('play', user_id);	
+	var custom_game_id = '13fe3e51-fbc6-43ff';
 
+	// socket.emit('play', user_id);	
+	
 	socket.emit('join_private', custom_game_id, user_id);
-	socket.emit('set_force_start', custom_game_id, true);
+	setTimeout(()=> {
+		socket.emit('set_force_start', custom_game_id, true);
+	}, 100)
 	console.log('Joined custom game at http://bot.generals.io/games/' + encodeURIComponent(custom_game_id));
 
 	// When you're ready, you can have your bot join other game modes.
@@ -64,9 +66,10 @@ var map = [];
 
 var myGeneralLocation = null
 var myGeneralLocationKnown = false
-
+var pathToTarget = []
+var newArmyIndex
 var terrain
-var mostRecentMove
+
 
 
 var mapWidth
@@ -120,10 +123,38 @@ function possibleMovesFromLocation(square){
 	return possibleMoves //As indexes
 }
 
-function enemyTerrainVisible(terrainMap){
-	var visible = terrainMap.some(tile => tile > -1 && tile !== playerIndex)
-	console.log(visible)
-	return visible
+function findMyPath(terrainMap, currentLocation, destination, path = [currentLocation], wrongWay = []){
+  if (currentLocation !== destination){
+
+    var terrain = terrainMap
+    let potentialMoves = possibleMovesFromLocation(currentLocation, terrain)
+    let filteredMoves = potentialMoves.filter(el => !wrongWay.includes(el))
+
+    var [targetRow, targetCol] = getRowCol(destination)
+    var movesCopy = filteredMoves.slice()
+    var moveScore = mapWidth + mapHeight
+    var move = movesCopy[0]
+    movesCopy.forEach(tile => {
+      var [moveRow, moveCol] = getRowCol(tile)
+      var score = Math.abs(targetRow - moveRow) + Math.abs(targetCol - moveCol)
+      // console.log(`Tile: ${tile} Score: ${score} CityClosestMove: ${cityClosestMove}`)
+      if (score <= moveScore){
+        moveScore = score
+        path.includes(tile) ? null : move = tile
+      }  
+    })
+
+    let nextMove = move
+
+    if(path.includes(nextMove)){
+      wrongWay.push(currentLocation)
+      var wentWrong = path.indexOf(nextMove)
+      path.splice(wentWrong)
+		}
+    path.push(nextMove)
+    findMyPath(terrainMap, nextMove, destination, path, wrongWay)
+  }
+  return path
 }
 
 socket.on('game_start', function(data) {
@@ -135,6 +166,7 @@ socket.on('game_start', function(data) {
 });
 
 socket.on('game_update', function(data) {
+
 	// Patch the city and map diffs into our local variables.
 	cities = patch(cities, data.cities_diff);
 	map = patch(map, data.map_diff);
@@ -157,99 +189,130 @@ socket.on('game_update', function(data) {
 	
 	// Make a move.
 	while (true) {
-		// Pick a random tile.
-		console.log(cities)
-		// Find all my tiles
-		var myOccupiedTerrain = []
-		terrain.forEach((el, idx) => {
-			if(el === playerIndex){
-				myOccupiedTerrain.push(idx)
-			}
-		})
+
 		var is50 = false
-		var biggestArmySize = armies[myOccupiedTerrain[0]]
-		// console.log(`Biggest Size Army: ${biggestArmySize}`)
-		var biggestArmyIndex = myOccupiedTerrain[0]
-		// console.log(`BiggestIndex: ${biggestArmyIndex}`)
-		myOccupiedTerrain.forEach(el => {
-			if(armies[el] > biggestArmySize){
-				biggestArmySize = armies[el]
-				biggestArmyIndex = el
-			}
-		})
-		var index = biggestArmyIndex
-		// console.log(`Start Index: ${index}`)
-		
-		var options = possibleMovesFromLocation(index)
 
-		var visibleCities
-		var targetVisibleCity = []
-		if(cities.length > 0 && myOccupiedTerrain.length > 8){
-			visibleCities = cities.slice()
-			for(i = 0; i < visibleCities.length; i++){
-				if(terrain[visibleCities[i]] === playerIndex){
-					visibleCities.splice(i, 1, 'Player Controlled')
-				}
-			}
-			visibleCities.forEach(city => {
-				if (city !== 'Player Controlled'){
-					targetVisibleCity.push(city)
-				}
-			})
-			console.log(`Target: ${targetVisibleCity}`)
-			console.log(`VisibleCities: ${visibleCities}`)
-		}
-		var cityClosestMove = false
-
-		if(targetVisibleCity[0]){
-			var optionsCopy = options.slice()
-			cityClosestMoveScore = mapWidth + mapHeight
-			cityClosestMove = optionsCopy[0]
-			var [cityRow, cityCol] = getRowCol(targetVisibleCity[0])
-			optionsCopy.forEach(tile => {
-				var [moveRow, moveCol] = getRowCol(tile)
-				var score = Math.abs(cityRow - moveRow) + Math.abs(cityCol - moveCol)
-				console.log(`Tile: ${tile} Score: ${score} CityClosestMove: ${cityClosestMove}`)
-				if (score < cityClosestMoveScore){
-					cityClosestMoveScore = score
-					cityClosestMove = tile
-				}
-			})
-			console.log(`Closest Move Final: ${cityClosestMove}`)
-		}
-		
-		// console.log(`Options: ${options}`)
-		var targetOptions = options.filter(el => terrain[el] !== -2 && terrain[el] !== playerIndex && terrain[el] > 0)
-		// console.log(targetOptions)
-		var preferredOptions = options.filter(el => terrain[el] !== -2 && terrain[el] !== playerIndex)
-		
-		var viableOptions = options.filter(el => terrain[el] !== -2)
-		// console.log(`Preferred Options: ${preferredOptions}`)
-		// console.log(`Viable Options: ${viableOptions}`)
-		var choice;
-
-		if (cityClosestMove && !enemyTerrainVisible(terrain)){
-			choice = cityClosestMove
-	    } else if (targetOptions.length > 0) {
-			choice = targetOptions[Math.floor(Math.random() * targetOptions.length)]
-		} else if(preferredOptions.length > 0){
-			choice = preferredOptions[Math.floor(Math.random() * preferredOptions.length)]
+		if (pathToTarget.length > 0){
+			var next = pathToTarget.shift()
+			socket.emit('attack', newArmyIndex, next, is50)
+			newArmyIndex = next
+			console.log('SAVED MOVES')
+			break
 		} else {
-			choice = viableOptions[Math.floor(Math.random() * viableOptions.length)]
-		}
 
-		// console.log(`Choice: ${choice}`)
-		if (myGeneralLocation === index){
-			is50 = true
-		}
+			// Pick a random tile.
+			console.log(cities)
+			// Find all my tiles
+			var myOccupiedTerrain = []
+			var enemyTerrain = []
+			terrain.forEach((el, idx) => {
+				if(el === playerIndex){
+					myOccupiedTerrain.push(idx)
+				}
+			})
+			terrain.forEach((el, idx) => {
+				if(el > -1 && el !== playerIndex){
+					enemyTerrain.push(idx)
+				}
+			})
+			
+			var biggestArmySize = armies[myOccupiedTerrain[0]]
+			// console.log(`Biggest Size Army: ${biggestArmySize}`)
+			var biggestArmyIndex = myOccupiedTerrain[0]
+			// console.log(`BiggestIndex: ${biggestArmyIndex}`)
+			myOccupiedTerrain.forEach(el => {
+				if(armies[el] > biggestArmySize){
+					biggestArmySize = armies[el]
+					biggestArmyIndex = el
+				}
+			})
+			var index = biggestArmyIndex
+			// console.log(`Start Index: ${index}`)
+			
+			var options = possibleMovesFromLocation(index)
+			var getTheGeneral = false
+			var getTheArmy = false
+			var getTheCity = false
+			var biggestEnemyArmy
+			var visibleCities
+			var targetVisibleCity = []
 
-		socket.emit('attack', index, choice, is50)
-		mostRecentMove = choice
-		break;
+			if(cities.length > 0 && myOccupiedTerrain.length > 8){
+				visibleCities = cities.slice()
+				for(i = 0; i < visibleCities.length; i++){
+					if(terrain[visibleCities[i]] === playerIndex){
+						visibleCities.splice(i, 1, 'Player Controlled')
+					}
+				}
+				visibleCities.forEach(city => {
+					if (city !== 'Player Controlled'){
+						targetVisibleCity.push(city)
+					}
+				})
+				console.log(`Target: ${targetVisibleCity}`)
+				console.log(`VisibleCities: ${visibleCities}`)
+			}
+			
+			if(targetVisibleCity[0]){
+				getTheCity = findMyPath(terrain, index, targetVisibleCity[0])[1]
+			}
+			
+			if(enemyTerrain[0]){
+				biggestEnemyArmy = armies[enemyTerrain[0]]
+				getTheArmy = enemyTerrain[0]
+				
+				enemyTerrain.forEach(el => {
+					if(armies[el] > biggestEnemyArmy){
+						biggestEnemyArmy = armies[el]
+						getTheArmy = el
+					}
+				})
+			}
+			
+			// console.log(`Options: ${options}`)
+			var targetOptions = options.filter(el => terrain[el] !== -2 && terrain[el] !== playerIndex && terrain[el] > 0)
+			// console.log(targetOptions)
+			var preferredOptions = options.filter(el => terrain[el] !== -2 && terrain[el] !== playerIndex)
+			
+			var viableOptions = options.filter(el => terrain[el] !== -2)
+			// console.log(`Preferred Options: ${preferredOptions}`)
+			// console.log(`Viable Options: ${viableOptions}`)
+			if (getTheGeneral) {
+				pathToTarget = findMyPath(terrain, index, getTheGeneral).splice(1, 2)
+				myMove = pathToTarget[0]
+				console.log(`Moving Towards A General at ${getTheGeneral}. Move: ${myMove}`)
+			} else if (getTheArmy){
+				console.log('getting path')
+				pathToTarget = findMyPath(terrain, index, getTheArmy).splice(1, 2)
+				myMove = pathToTarget[0]
+				console.log(`Moving Towards An Army at ${getTheArmy}. Move: ${myMove}`)
+			} else if (getTheCity && myOccupiedTerrain.length > 8) {
+				console.log(`getting path from ${index} to ${getTheCity}`)
+				pathToTarget = findMyPath(terrain, index, getTheCity).splice(1, 2)
+				myMove = pathToTarget[0]
+				console.log(`Moving Towards City at ${getTheCity}. Move: ${myMove}`)
+				console.log(`Path: ${pathToTarget}`)
+			} else if (targetOptions.length > 0) {
+				myMove = targetOptions[Math.floor(Math.random() * targetOptions.length)]
+			} else if(preferredOptions.length > 0){
+				myMove = preferredOptions[Math.floor(Math.random() * preferredOptions.length)]
+			} else {
+				myMove = viableOptions[Math.floor(Math.random() * viableOptions.length)]
+			}
+			
+			// console.log(`Choice: ${choice}`)
+			if (myGeneralLocation === index){
+				is50 = true
+			}
+			newArmyIndex = myMove
+			socket.emit('attack', index, myMove, is50)
+			
+			break;
+		}
 	}
 });
-
-function leaveGame() {
+	
+	function leaveGame() {
 	socket.emit('leave_game');
 	process.exit(1);
 }
