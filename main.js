@@ -70,8 +70,6 @@ var pathToTarget = []
 var newArmyIndex
 var terrain
 
-
-
 var mapWidth
 var mapHeight
 var mapSize
@@ -196,7 +194,7 @@ socket.on('game_update', function(data) {
 			var next = pathToTarget.shift()
 			socket.emit('attack', newArmyIndex, next, is50)
 			newArmyIndex = next
-			console.log('SAVED MOVES')
+			console.log(`SAVED MOVES. Move from: ${newArmyIndex} to ${next}`)
 			break
 		} else {
 
@@ -219,6 +217,8 @@ socket.on('game_update', function(data) {
 			var biggestArmySize = armies[myOccupiedTerrain[0]]
 			// console.log(`Biggest Size Army: ${biggestArmySize}`)
 			var biggestArmyIndex = myOccupiedTerrain[0]
+			terrain[newArmyIndex] === playerIndex && armies[newArmyIndex] > 1 ? biggestEnemyArmy = newArmyIndex : null
+			
 			// console.log(`BiggestIndex: ${biggestArmyIndex}`)
 			myOccupiedTerrain.forEach(el => {
 				if(armies[el] > biggestArmySize){
@@ -278,17 +278,17 @@ socket.on('game_update', function(data) {
 			// console.log(`Preferred Options: ${preferredOptions}`)
 			// console.log(`Viable Options: ${viableOptions}`)
 			if (getTheGeneral) {
-				pathToTarget = findMyPath(terrain, index, getTheGeneral).splice(1, 2)
+				pathToTarget = findMyPath(terrain, index, getTheGeneral).splice(1, 4)
 				myMove = pathToTarget[0]
 				console.log(`Moving Towards A General at ${getTheGeneral}. Move: ${myMove}`)
 			} else if (getTheArmy){
 				console.log('getting path')
-				pathToTarget = findMyPath(terrain, index, getTheArmy).splice(1, 2)
+				pathToTarget = findMyPath(terrain, index, getTheArmy).splice(1, 4)
 				myMove = pathToTarget[0]
 				console.log(`Moving Towards An Army at ${getTheArmy}. Move: ${myMove}`)
 			} else if (getTheCity && myOccupiedTerrain.length > 8) {
 				console.log(`getting path from ${index} to ${getTheCity}`)
-				pathToTarget = findMyPath(terrain, index, getTheCity).splice(1, 2)
+				pathToTarget = findMyPath(terrain, index, getTheCity).splice(1, 4)
 				myMove = pathToTarget[0]
 				console.log(`Moving Towards City at ${getTheCity}. Move: ${myMove}`)
 				console.log(`Path: ${pathToTarget}`)
@@ -304,6 +304,7 @@ socket.on('game_update', function(data) {
 			if (myGeneralLocation === index){
 				is50 = true
 			}
+			pathToTarget.shift()
 			newArmyIndex = myMove
 			socket.emit('attack', index, myMove, is50)
 			
