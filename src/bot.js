@@ -1,5 +1,5 @@
-var io = require('socket.io-client');
-require('dotenv').config()
+import io from 'socket.io-client'
+import config from './config'
 
 var socket = io('http://botws.generals.io');
 
@@ -17,9 +17,9 @@ socket.on('connect', function() {
 	 * replacing this line with something that instead supplies the user_id via an environment variable, e.g.
 	 * var user_id = process.env.BOT_USER_ID;
 	 */
-	var user_id = process.env.BOT_USER_ID;
+	var user_id = config.BOT_USER_ID;
+	var username = config.username;
 
-	var username = '[Bot]rukee';
 
 	// Set the username for the bot.
 	// This should only ever be done once. See the API reference for more details.
@@ -27,7 +27,7 @@ socket.on('connect', function() {
 
 	// Join a custom game and force start immediately.
 	// Custom games are a great way to test your bot while you develop it because you can play against your bot!
-	var custom_game_id = '13fe3e51-fbc6-43ff';
+	var custom_game_id = config.custom_game_id;
 
 	// socket.emit('play', user_id);	
 	
@@ -143,7 +143,13 @@ function findMyPath(terrainMap, currentLocation, destination, path = [currentLoc
     })
 
     let nextMove = move
-
+		if(nextMove === undefined){
+			console.log(`Uh oh. Path: ${path}. Wrong Way: ${wrongWay}. Destination: ${destination}`)
+			var bailOutOptions = possibleMovesFromLocation(path[0])
+			var viableBailOutOptions = bailOutOptions.filter(el => terrain[el] !== -2)
+			var bailOutMove = viableBailOutOptions[Math.floor(Math.random() * viableBailOutOptions.length)]
+			path.splice(1, path.length, bailOutMove, destination)
+		}
     if(path.includes(nextMove)){
       wrongWay.push(currentLocation)
       var wentWrong = path.indexOf(nextMove)
@@ -217,15 +223,17 @@ socket.on('game_update', function(data) {
 			var biggestArmySize = armies[myOccupiedTerrain[0]]
 			// console.log(`Biggest Size Army: ${biggestArmySize}`)
 			var biggestArmyIndex = myOccupiedTerrain[0]
-			terrain[newArmyIndex] === playerIndex && armies[newArmyIndex] > 1 ? biggestEnemyArmy = newArmyIndex : null
 			
 			// console.log(`BiggestIndex: ${biggestArmyIndex}`)
+			var totalArmies = 0
 			myOccupiedTerrain.forEach(el => {
 				if(armies[el] > biggestArmySize){
 					biggestArmySize = armies[el]
 					biggestArmyIndex = el
 				}
+					totalArmies += armies[el]
 			})
+			terrain[newArmyIndex] === playerIndex && armies[newArmyIndex] > 1 ? biggestArmyIndex = newArmyIndex : null
 			var index = biggestArmyIndex
 			// console.log(`Start Index: ${index}`)
 			
@@ -254,7 +262,7 @@ socket.on('game_update', function(data) {
 			}
 			
 			if(targetVisibleCity[0]){
-				getTheCity = findMyPath(terrain, index, targetVisibleCity[0])[1]
+				getTheCity = targetVisibleCity[0]
 			}
 			
 			if(enemyTerrain[0]){
@@ -282,11 +290,11 @@ socket.on('game_update', function(data) {
 				myMove = pathToTarget[0]
 				console.log(`Moving Towards A General at ${getTheGeneral}. Move: ${myMove}`)
 			} else if (getTheArmy){
-				console.log('getting path')
+				console.log(`Getting path to army at ${getTheArmy}`)
 				pathToTarget = findMyPath(terrain, index, getTheArmy).splice(1, 4)
 				myMove = pathToTarget[0]
 				console.log(`Moving Towards An Army at ${getTheArmy}. Move: ${myMove}`)
-			} else if (getTheCity && myOccupiedTerrain.length > 8) {
+			} else if (getTheCity && myOccupiedTerrain.length > 15 && armies[index] > 25) {
 				console.log(`getting path from ${index} to ${getTheCity}`)
 				pathToTarget = findMyPath(terrain, index, getTheCity).splice(1, 4)
 				myMove = pathToTarget[0]
@@ -315,7 +323,6 @@ socket.on('game_update', function(data) {
 	
 	function leaveGame() {
 	socket.emit('leave_game');
-	process.exit(1);
 }
 
 socket.on('game_lost', leaveGame);
