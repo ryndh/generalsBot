@@ -1,5 +1,18 @@
+/* eslint-disable no-unused-expressions */
 import io from 'socket.io-client'
 import config from './config'
+
+
+export function Start() {
+	setTimeout(()=> {
+		socket.emit('set_force_start', config.custom_game_id, true);
+	}, 100)	
+}
+
+export function Join() {
+	socket.emit('set_username', config.BOT_USER_ID, config.username);
+	socket.emit('join_private', config.custom_game_id, config.BOT_USER_ID);
+}
 
 var socket = io('http://botws.generals.io');
 
@@ -17,25 +30,16 @@ socket.on('connect', function() {
 	 * replacing this line with something that instead supplies the user_id via an environment variable, e.g.
 	 * var user_id = process.env.BOT_USER_ID;
 	 */
-	var user_id = config.BOT_USER_ID;
-	var username = config.username;
-
 
 	// Set the username for the bot.
 	// This should only ever be done once. See the API reference for more details.
-	socket.emit('set_username', user_id, username);
 
 	// Join a custom game and force start immediately.
 	// Custom games are a great way to test your bot while you develop it because you can play against your bot!
-	var custom_game_id = config.custom_game_id;
 
 	// socket.emit('play', user_id);	
 	
-	socket.emit('join_private', custom_game_id, user_id);
-	setTimeout(()=> {
-		socket.emit('set_force_start', custom_game_id, true);
-	}, 100)
-	console.log('Joined custom game at http://bot.generals.io/games/' + encodeURIComponent(custom_game_id));
+	console.log('Joined custom game at http://bot.generals.io/games/' + encodeURIComponent(config.custom_game_id));
 
 	// When you're ready, you can have your bot join other game modes.
 	// Here are some examples of how you'd do that:
@@ -225,13 +229,12 @@ socket.on('game_update', function(data) {
 			var biggestArmyIndex = myOccupiedTerrain[0]
 			
 			// console.log(`BiggestIndex: ${biggestArmyIndex}`)
-			var totalArmies = 0
+
 			myOccupiedTerrain.forEach(el => {
 				if(armies[el] > biggestArmySize){
 					biggestArmySize = armies[el]
 					biggestArmyIndex = el
 				}
-					totalArmies += armies[el]
 			})
 			terrain[newArmyIndex] === playerIndex && armies[newArmyIndex] > 1 ? biggestArmyIndex = newArmyIndex : null
 			var index = biggestArmyIndex
@@ -247,7 +250,7 @@ socket.on('game_update', function(data) {
 
 			if(cities.length > 0 && myOccupiedTerrain.length > 8){
 				visibleCities = cities.slice()
-				for(i = 0; i < visibleCities.length; i++){
+				for(let i = 0; i < visibleCities.length; i++){
 					if(terrain[visibleCities[i]] === playerIndex){
 						visibleCities.splice(i, 1, 'Player Controlled')
 					}
@@ -285,6 +288,7 @@ socket.on('game_update', function(data) {
 			var viableOptions = options.filter(el => terrain[el] !== -2)
 			// console.log(`Preferred Options: ${preferredOptions}`)
 			// console.log(`Viable Options: ${viableOptions}`)
+			var myMove
 			if (getTheGeneral) {
 				pathToTarget = findMyPath(terrain, index, getTheGeneral).splice(1, 4)
 				myMove = pathToTarget[0]

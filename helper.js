@@ -1,3 +1,0 @@
-class General () {
-    constructor()
-}
