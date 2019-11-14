@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-expressions */
+/* eslint-disable no-loop-func */
+
 import io from 'socket.io-client'
 import config from './config'
-
 
 export function Start() {
 	setTimeout(()=> {
@@ -9,9 +10,9 @@ export function Start() {
 	}, 100)	
 }
 
-export function Join() {
-	socket.emit('set_username', config.BOT_USER_ID, config.username);
-	socket.emit('join_private', config.custom_game_id, config.BOT_USER_ID);
+export function Join(userID, username) {
+	socket.emit('set_username', userID, username);
+	socket.emit('join_private', config.custom_game_id, userID);
 }
 
 var socket = io('http://botws.generals.io');
@@ -148,7 +149,7 @@ function findMyPath(terrainMap, currentLocation, destination, path = [currentLoc
 
     let nextMove = move
 		if(nextMove === undefined){
-			console.log(`Uh oh. Path: ${path}. Wrong Way: ${wrongWay}. Destination: ${destination}`)
+			console.log(`Uh oh. Path: ${path}. Wrong Way: ${wrongWay}. Destination: ${destination}`)//Breaks here every now and then
 			var bailOutOptions = possibleMovesFromLocation(path[0])
 			var viableBailOutOptions = bailOutOptions.filter(el => terrain[el] !== -2)
 			var bailOutMove = viableBailOutOptions[Math.floor(Math.random() * viableBailOutOptions.length)]
@@ -174,7 +175,6 @@ socket.on('game_start', function(data) {
 });
 
 socket.on('game_update', function(data) {
-
 	// Patch the city and map diffs into our local variables.
 	cities = patch(cities, data.cities_diff);
 	map = patch(map, data.map_diff);
@@ -186,10 +186,12 @@ socket.on('game_update', function(data) {
 	mapSize = mapWidth * mapHeight;
 	myGeneralLocationKnown ? null : myGeneralLocation = generals.filter(el => el > 0)[0]
 	// console.log(myGeneralLocation)
-
+	
 	// The next |size| terms are army values.
 	// armies[0] is the top-left corner of the map.
 	var armies = map.slice(2, mapSize + 2);
+	console.log(`Armies:`)
+	console.log(armies)
 
 	// The last |size| terms are terrain values.
 	// terrain[0] is the top-left corner of the map.
@@ -298,7 +300,7 @@ socket.on('game_update', function(data) {
 				pathToTarget = findMyPath(terrain, index, getTheArmy).splice(1, 4)
 				myMove = pathToTarget[0]
 				console.log(`Moving Towards An Army at ${getTheArmy}. Move: ${myMove}`)
-			} else if (getTheCity && myOccupiedTerrain.length > 15 && armies[index] > 25) {
+			} else if (getTheCity && myOccupiedTerrain.length > 10 && armies[index] > 25) {
 				console.log(`getting path from ${index} to ${getTheCity}`)
 				pathToTarget = findMyPath(terrain, index, getTheCity).splice(1, 4)
 				myMove = pathToTarget[0]

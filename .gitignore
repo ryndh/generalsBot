@@ -40,3 +40,4 @@ package-lock.json
 # checking out, simply run “npm install”.
 node_modules
 config.js
+helpers.js

@@ -1,12 +1,34 @@
-import React from 'react'
-import {Grommet, Button} from 'grommet'
-import { Start, Join } from './bot'
+import React, { lazy, Suspense } from "react";
+import { Grommet } from "grommet";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
+import Header from "./components/Header";
+import theme from "./theme";
 
-export default function App(){
+const Home = lazy(() => import("./pages/Home"));
+const Play = lazy(() => import("./pages/Play"));
+// const Test = lazy(() => import("./pages/Test"));
+
+function App() {
   return (
-    <Grommet>
-      <Button onClick={() => Join()} label="Join"></Button>
-      <Button onClick={() => Start()} label="Start"></Button>
+    <Grommet theme={theme}>
+      <Suspense fallback="Loading...">
+        <Router>
+          <Header />
+          <Switch>
+            <Route path="/" exact component={Home}></Route>
+            <Redirect exact from="/play" to="/play/1"></Redirect>
+            <Route path="/play/:bot" component={Play}></Route>
+            {/* <Route path="/test" component={Test}></Route> */}
+          </Switch>
+        </Router>
+      </Suspense>
     </Grommet>
-  )
+  );
 }
+
+export default App;
