@@ -79,6 +79,9 @@ var mapWidth
 var mapHeight
 var mapSize
 
+var teams
+var myTeam
+
 /* Returns a new array created by patching the diff into the old array.
  * The diff formatted with alternating matching and mismatching segments:
  * <Number of matching elements>
@@ -172,6 +175,8 @@ socket.on('game_start', function(data) {
 	var replay_url = 'http://bot.generals.io/replays/' + encodeURIComponent(data.replay_id);
 	console.log('Game starting! The replay will be available after the game at ' + replay_url);
 	console.log(`PlayerIndex is ${playerIndex}`)
+	teams = data.teams
+	myTeam = teams[playerIndex]
 });
 
 socket.on('game_update', function(data) {
@@ -221,7 +226,7 @@ socket.on('game_update', function(data) {
 				}
 			})
 			terrain.forEach((el, idx) => {
-				if(el > -1 && el !== playerIndex){
+				if(el > -1 && el !== playerIndex && teams[el] !== myTeam){
 					enemyTerrain.push(idx)
 				}
 			})
