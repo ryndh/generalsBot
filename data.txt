@@ -1,0 +1,569 @@
+Game starting! The replay will be available after the game at http://bot.generals.io/replays/HxoNNASnB
+bot.js:177 PlayerIndex is 0
+bot.js:219 [224]
+bot.js:325 -- 1 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) preferred tile
+bot.js:219 [224]
+bot.js:325 -- 2 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 261. This choice was made to go after a(n) preferred tile
+bot.js:219 [224]
+bot.js:325 -- 3 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) preferred tile
+bot.js:219 [224]
+bot.js:325 -- 4 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 244. This choice was made to go after a(n) preferred tile
+bot.js:219 [224]
+bot.js:325 -- 5 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) preferred tile
+bot.js:219 [224]
+bot.js:325 -- 6 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 7 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 225 to 224. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 8 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 261. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 9 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 261 to 279. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 10 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 244. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 11 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 244 to 226. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 12 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 261. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 13 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 261 to 260. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 14 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 244. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 15 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 244 to 245. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 16 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 17 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 225 to 224. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 18 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 244. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 19 --
+bot.js:326 I can see the following cities: undefined. I may target cities at . I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 244 to 262. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 20 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 21 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 225 to 224. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 22 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 244. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 23 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 244 to 226. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 24 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 226 to 227. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 25 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 261. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 26 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 261 to 262. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 27 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 262 to 263. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 28 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 244. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 29 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 244 to 226. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 30 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 226 to 208. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 31 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 261. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 32 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 261 to 262. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 33 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 262 to 263. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 34 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 263 to 281. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 35 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 261. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 36 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 261 to 260. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 37 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 260 to 278. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 38 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 278 to 277. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 39 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) last resort tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 40 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 225 to 207. This choice was made to go after a(n) preferred tile
+bot.js:219 (2) [224, 208]
+bot.js:325 -- 41 --
+bot.js:326 I can see the following cities: 224,208. I may target cities at 224,208. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 207 to 189. This choice was made to go after a(n) preferred tile
+bot.js:219 (3) [224, 208, 170]
+bot.js:325 -- 42 --
+bot.js:326 I can see the following cities: 224,208,170. I may target cities at 224,208,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) last resort tile
+bot.js:219 (3) [224, 208, 170]
+bot.js:325 -- 43 --
+bot.js:326 I can see the following cities: 224,208,170. I may target cities at 224,208,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 225 to 224. This choice was made to go after a(n) preferred tile
+bot.js:219 (3) [224, 208, 170]
+bot.js:325 -- 44 --
+bot.js:326 I can see the following cities: 224,208,170. I may target cities at 224,208,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 261. This choice was made to go after a(n) last resort tile
+bot.js:219 (3) [224, 208, 170]
+bot.js:325 -- 45 --
+bot.js:326 I can see the following cities: 224,208,170. I may target cities at 224,208,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 261 to 262. This choice was made to go after a(n) last resort tile
+bot.js:219 (3) [224, 208, 170]
+bot.js:325 -- 46 --
+bot.js:326 I can see the following cities: 224,208,170. I may target cities at 224,208,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 262 to 244. This choice was made to go after a(n) last resort tile
+bot.js:219 (3) [224, 208, 170]
+bot.js:325 -- 47 --
+bot.js:326 I can see the following cities: 224,208,170. I may target cities at 224,208,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 244 to 245. This choice was made to go after a(n) last resort tile
+bot.js:219 (3) [224, 208, 170]
+bot.js:325 -- 48 --
+bot.js:326 I can see the following cities: 224,208,170. I may target cities at 224,208,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 245 to 246. This choice was made to go after a(n) preferred tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 49 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 244. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 50 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 244 to 226. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 51 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 226 to 208. This choice was made to go after a(n) preferred tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 52 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 53 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 225 to 224. This choice was made to go after a(n) preferred tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 54 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 244. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 55 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 244 to 262. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 56 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 262 to 263. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 57 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 263 to 262. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 58 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 262 to 244. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 59 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 244 to 245. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 60 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 245 to 263. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 61 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 263 to 245. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 62 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 245 to 227. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 63 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 227 to 228. This choice was made to go after a(n) preferred tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 64 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 228 to 229. This choice was made to go after a(n) preferred tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 65 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 244. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 66 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 244 to 243. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 67 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 68 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 225 to 224. This choice was made to go after a(n) preferred tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 69 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) last resort tile
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 70 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 189,171
+bot.js:328 I'm moving my army from 225 to 207. This choice was made to go after a(n) army
+bot.js:211 -- 71 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 189
+bot.js:211 -- 72 --
+bot.js:212 I have saved moves from a previous target. Moving from: 189 to 171
+bot.js:219 (3) [224, 208, 229]
+bot.js:325 -- 73 --
+bot.js:326 I can see the following cities: 224,208,229. I may target cities at 224,208,229. I can see a general at none
+bot.js:327 My path is 207,189
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) army
+bot.js:211 -- 74 --
+bot.js:212 I have saved moves from a previous target. Moving from: 225 to 207
+bot.js:211 -- 75 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 189
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 76 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 207,189,171
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) army
+bot.js:211 -- 77 --
+bot.js:212 I have saved moves from a previous target. Moving from: 225 to 207
+bot.js:211 -- 78 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 189
+bot.js:211 -- 79 --
+bot.js:212 I have saved moves from a previous target. Moving from: 189 to 171
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 80 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 207,189,171
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) army
+bot.js:211 -- 81 --
+bot.js:212 I have saved moves from a previous target. Moving from: 225 to 207
+bot.js:211 -- 82 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 189
+bot.js:211 -- 83 --
+bot.js:212 I have saved moves from a previous target. Moving from: 189 to 171
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 84 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 152
+bot.js:328 I'm moving my army from 171 to 153. This choice was made to go after a(n) army
+bot.js:211 -- 85 --
+bot.js:212 I have saved moves from a previous target. Moving from: 153 to 152
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 86 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 207,206
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) army
+bot.js:211 -- 87 --
+bot.js:212 I have saved moves from a previous target. Moving from: 225 to 207
+bot.js:211 -- 88 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 206
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 89 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 207
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) army
+bot.js:211 -- 90 --
+bot.js:212 I have saved moves from a previous target. Moving from: 225 to 207
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 91 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 207,189,171
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) army
+bot.js:211 -- 92 --
+bot.js:212 I have saved moves from a previous target. Moving from: 225 to 207
+bot.js:211 -- 93 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 189
+bot.js:211 -- 94 --
+bot.js:212 I have saved moves from a previous target. Moving from: 189 to 171
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 95 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 207,189,171
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) army
+bot.js:211 -- 96 --
+bot.js:212 I have saved moves from a previous target. Moving from: 225 to 207
+bot.js:211 -- 97 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 189
+bot.js:211 -- 98 --
+bot.js:212 I have saved moves from a previous target. Moving from: 189 to 171
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 99 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 207,189,171
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) army
+bot.js:211 -- 100 --
+bot.js:212 I have saved moves from a previous target. Moving from: 225 to 207
+bot.js:211 -- 101 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 189
+bot.js:211 -- 102 --
+bot.js:212 I have saved moves from a previous target. Moving from: 189 to 171
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 103 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 135
+bot.js:328 I'm moving my army from 171 to 153. This choice was made to go after a(n) army
+bot.js:211 -- 104 --
+bot.js:212 I have saved moves from a previous target. Moving from: 153 to 135
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 105 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 135 to 117. This choice was made to go after a(n) army
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 106 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 98
+bot.js:328 I'm moving my army from 117 to 99. This choice was made to go after a(n) army
+bot.js:211 -- 107 --
+bot.js:212 I have saved moves from a previous target. Moving from: 99 to 98
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 108 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 207,189,171
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) army
+bot.js:211 -- 109 --
+bot.js:212 I have saved moves from a previous target. Moving from: 225 to 207
+bot.js:211 -- 110 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 189
+bot.js:211 -- 111 --
+bot.js:212 I have saved moves from a previous target. Moving from: 189 to 171
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 112 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 135,117
+bot.js:328 I'm moving my army from 171 to 153. This choice was made to go after a(n) army
+bot.js:211 -- 113 --
+bot.js:212 I have saved moves from a previous target. Moving from: 153 to 135
+bot.js:211 -- 114 --
+bot.js:212 I have saved moves from a previous target. Moving from: 135 to 117
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 115 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 207,189,171
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) army
+bot.js:211 -- 116 --
+bot.js:212 I have saved moves from a previous target. Moving from: 225 to 207
+bot.js:211 -- 117 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 189
+bot.js:211 -- 118 --
+bot.js:212 I have saved moves from a previous target. Moving from: 189 to 171
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 119 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 207,206
+bot.js:328 I'm moving my army from 171 to 189. This choice was made to go after a(n) army
+bot.js:211 -- 120 --
+bot.js:212 I have saved moves from a previous target. Moving from: 189 to 207
+bot.js:211 -- 121 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 206
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 122 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 207,189,171
+bot.js:328 I'm moving my army from 243 to 225. This choice was made to go after a(n) army
+bot.js:211 -- 123 --
+bot.js:212 I have saved moves from a previous target. Moving from: 225 to 207
+bot.js:211 -- 124 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 189
+bot.js:211 -- 125 --
+bot.js:212 I have saved moves from a previous target. Moving from: 189 to 171
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 126 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 207,225,243
+bot.js:328 I'm moving my army from 171 to 189. This choice was made to go after a(n) army
+bot.js:211 -- 127 --
+bot.js:212 I have saved moves from a previous target. Moving from: 189 to 207
+bot.js:211 -- 128 --
+bot.js:212 I have saved moves from a previous target. Moving from: 207 to 225
+bot.js:211 -- 129 --
+bot.js:212 I have saved moves from a previous target. Moving from: 225 to 243
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 130 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 261. This choice was made to go after a(n) army
+bot.js:219 (4) [224, 208, 229, 170]
+bot.js:325 -- 131 --
+bot.js:326 I can see the following cities: 224,208,229,170. I may target cities at 224,208,229,170. I can see a general at none
+bot.js:327 My path is 
+bot.js:328 I'm moving my army from 243 to 261. This choice was made to go after a(n) army
+bot.js:219 (12) [162, 253, 130, 38, 224, 208, 229, 331, 170, 79, 143, 243]
+bot.js:155 Uh oh. Path: . Wrong Way: . Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: . Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,. Destination: 3
+bot.js:155 Uh oh. Path: . Wrong Way: ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,. Destination: 3
