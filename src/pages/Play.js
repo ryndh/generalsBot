@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Start, Join, Team } from "../../src/bot.js";
-import { Button, Box } from "grommet";
+import { Button, Box, Select } from "grommet";
 import config from '../config'
 
 export default function Play({ match }) {
@@ -27,10 +27,13 @@ export default function Play({ match }) {
   setTimeout(() => {
     Join(bots[bot].id, bots[bot].username);
   });
-
-  const [team, setTeam] = useState()
+  const [value, setValue] = useState()
+  const handleChange = option => {
+    setValue(option)
+    Team(config.custom_game_id, option)
+  }
   return (
-    <Box pad="medium">
+    <Box pad="small">
       <div>
         <Button
           onClick={() => {
@@ -44,13 +47,13 @@ export default function Play({ match }) {
           }}
           label="Join Game"
         ></Button>
-        <Button
-          onClick={() => {
-            Team(config.custom_game_id, team);
-          }}
-          label="Join Team"
-        ></Button>
-        <input onChange={(evt) => setTeam(evt.target.value)}></input>
+        <Select
+          placeholder="Team"
+          size="small"
+          options={['1', '2', '3', '4', '5', '6', '7', '8']}
+          value={value}
+          onChange={({option}) => handleChange(option)}
+        />
       </div>
     </Box>
   );

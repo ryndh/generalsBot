@@ -64,7 +64,7 @@ export default {
       hair: "1px",
       xxsmall: "4px",
       xsmall: "8px",
-      small: "16px",
+      small: "8px",
       medium: "32px",
       large: "64px",
       xlarge: "128px",

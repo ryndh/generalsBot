@@ -306,15 +306,15 @@ socket.on('game_update', function(data) {
 			// console.log(`Viable Options: ${viableOptions}`)
 			var decision
 			if (getTheGeneral) {
-				pathToTarget = findMyPath(terrain, index, getTheGeneral).splice(1, 4)
+				pathToTarget = findMyPath(terrain, index, getTheGeneral).splice(1, 6)
 				myMove = pathToTarget[0]
 				decision = 'general'
 			} else if (getTheArmy){
-				pathToTarget = findMyPath(terrain, index, getTheArmy).splice(1, 4)
+				pathToTarget = findMyPath(terrain, index, getTheArmy).splice(1, 6)
 				myMove = pathToTarget[0]
 				decision = 'army'
 			} else if (getTheCity && myOccupiedTerrain.length > 10 && armies[index] > 10) {
-				pathToTarget = findMyPath(terrain, index, getTheCity).splice(1, 4)
+				pathToTarget = findMyPath(terrain, index, getTheCity).splice(1, 6)
 				myMove = pathToTarget[0]
 				decision = 'city'
 			} else if (targetOptions.length > 0) {
