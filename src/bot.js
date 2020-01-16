@@ -14,6 +14,9 @@ export function Join(userID, username) {
 	socket.emit('set_username', userID, username);
 	socket.emit('join_private', config.custom_game_id, userID);
 }
+export function Team(gameId, team){
+	socket.emit('set_custom_team', gameId, team)
+}
 
 var socket = io('http://botws.generals.io');
 
@@ -178,7 +181,8 @@ socket.on('game_start', function(data) {
 	teams = data.teams
 	myTeam = teams[playerIndex]
 });
-
+let enemyGenerals
+let savedGenerals = []
 socket.on('game_update', function(data) {
 	// Patch the city and map diffs into our local variables.
 	cities = patch(cities, data.cities_diff);
@@ -190,6 +194,7 @@ socket.on('game_update', function(data) {
 	mapHeight = map[1];
 	mapSize = mapWidth * mapHeight;
 	myGeneralLocationKnown ? null : myGeneralLocation = generals.filter(el => el > 0)[0]
+	
 	// console.log(myGeneralLocation)
 	
 	// The next |size| terms are army values.
@@ -199,7 +204,12 @@ socket.on('game_update', function(data) {
 	// The last |size| terms are terrain values.
 	// terrain[0] is the top-left corner of the map.
 	terrain = map.slice(mapSize + 2, mapSize + 2 + mapSize);
-	
+
+	enemyGenerals = generals.filter((val, idx) => idx !== playerIndex && val > -1 && teams[terrain[val]] !== myTeam )
+
+	if(enemyGenerals[0]){
+		enemyGenerals.forEach(general => savedGenerals.includes(general) ? null : savedGenerals.push(general))
+	}
 	// Make a move.
 	while (true) {
 
@@ -250,10 +260,12 @@ socket.on('game_update', function(data) {
 			var getTheGeneral = false
 			var getTheArmy = false
 			var getTheCity = false
-			var biggestEnemyArmy
+			var smallestEnemyArmy
 			var visibleCities
 			var targetVisibleCity = []
-
+			if(enemyGenerals[0]){
+				getTheGeneral = enemyGenerals[0]
+			}
 			if(cities.length > 0 && myOccupiedTerrain.length > 8){
 				visibleCities = cities.slice()
 				for(let i = 0; i < visibleCities.length; i++){
@@ -273,12 +285,12 @@ socket.on('game_update', function(data) {
 			}
 			
 			if(enemyTerrain[0]){
-				biggestEnemyArmy = armies[enemyTerrain[0]]
+				smallestEnemyArmy = armies[enemyTerrain[0]]
 				getTheArmy = enemyTerrain[0]
 				
 				enemyTerrain.forEach(el => {
-					if(armies[el] > biggestEnemyArmy){
-						biggestEnemyArmy = armies[el]
+					if(armies[el] < smallestEnemyArmy){
+						smallestEnemyArmy = armies[el]
 						getTheArmy = el
 					}
 				})

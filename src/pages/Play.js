@@ -1,5 +1,5 @@
-import React from "react";
-import { Start, Join } from "../../src/bot.js";
+import React, {useState} from "react";
+import { Start, Join, Team } from "../../src/bot.js";
 import { Button, Box } from "grommet";
 import config from '../config'
 
@@ -13,17 +13,22 @@ export default function Play({ match }) {
     2: {
       id: config.BOT_USER_ID2,
       username: config.username2
-    }
+    },
+    3: {
+      id: config.BOT_USER_ID3,
+      username: config.username3
+    },
+    4: {
+      id: config.BOT_USER_ID4,
+      username: config.username4
+    },
   };
   
   setTimeout(() => {
     Join(bots[bot].id, bots[bot].username);
   });
 
-  setTimeout(() => {
-    Start();
-  }, 500);
-
+  const [team, setTeam] = useState()
   return (
     <Box pad="medium">
       <div>
@@ -37,8 +42,15 @@ export default function Play({ match }) {
           onClick={() => {
             Join(bots[bot].id, bots[bot].username);
           }}
-          label="Join"
+          label="Join Game"
         ></Button>
+        <Button
+          onClick={() => {
+            Team(config.custom_game_id, team);
+          }}
+          label="Join Team"
+        ></Button>
+        <input onChange={(evt) => setTeam(evt.target.value)}></input>
       </div>
     </Box>
   );
