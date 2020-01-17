@@ -181,8 +181,11 @@ socket.on('game_start', function(data) {
 	teams = data.teams
 	myTeam = teams[playerIndex]
 });
+
 let enemyGenerals
 let savedGenerals = []
+var myMove
+
 socket.on('game_update', function(data) {
 	// Patch the city and map diffs into our local variables.
 	cities = patch(cities, data.cities_diff);
@@ -211,12 +214,12 @@ socket.on('game_update', function(data) {
 		enemyGenerals.forEach(general => savedGenerals.includes(general) ? null : savedGenerals.push(general))
 	}
 	// Make a move.
+	
 	while (true) {
 
 		var is50 = false
-		var myMove
 
-		if (pathToTarget.length > 0){
+		if (pathToTarget.length > 0 && terrain[newArmyIndex] === playerIndex){
 			var next = pathToTarget.shift()
 			console.log(`-- ${data.turn} --`)
 			console.log(`I have saved moves from a previous target. Moving from: ${newArmyIndex} to ${next}`)
@@ -224,9 +227,7 @@ socket.on('game_update', function(data) {
 			newArmyIndex = next
 			break
 		} else {
-
 			// Pick a random tile.
-			console.log(cities)
 			// Find all my tiles
 			var myOccupiedTerrain = []
 			var enemyTerrain = []
@@ -255,7 +256,7 @@ socket.on('game_update', function(data) {
 			})
 			terrain[newArmyIndex] === playerIndex && armies[newArmyIndex] > 1 ? biggestArmyIndex = newArmyIndex : null
 			var index = armies[myMove] > 1 ? myMove : biggestArmyIndex
-			
+			console.log('armies', armies[myMove], 'index', index)
 			var options = possibleMovesFromLocation(index)
 			var getTheGeneral = false
 			var getTheArmy = false
@@ -306,15 +307,17 @@ socket.on('game_update', function(data) {
 			// console.log(`Viable Options: ${viableOptions}`)
 			var decision
 			if (getTheGeneral) {
-				pathToTarget = findMyPath(terrain, index, getTheGeneral).splice(1, 6)
+				pathToTarget = findMyPath(terrain, index, getTheGeneral).splice(1)
 				myMove = pathToTarget[0]
 				decision = 'general'
 			} else if (getTheArmy){
-				pathToTarget = findMyPath(terrain, index, getTheArmy).splice(1, 6)
+				pathToTarget = findMyPath(terrain, index, getTheArmy).splice(1)
+				// pathToTarget.length > 8 ? pathToTarget.splice(6) : pathToTarget.splice(4)
 				myMove = pathToTarget[0]
 				decision = 'army'
 			} else if (getTheCity && myOccupiedTerrain.length > 10 && armies[index] > 10) {
-				pathToTarget = findMyPath(terrain, index, getTheCity).splice(1, 6)
+				pathToTarget = findMyPath(terrain, index, getTheCity).splice(1)
+				// pathToTarget.length > 8 ? pathToTarget.splice(6) : pathToTarget.splice(4)
 				myMove = pathToTarget[0]
 				decision = 'city'
 			} else if (targetOptions.length > 0) {
@@ -328,14 +331,13 @@ socket.on('game_update', function(data) {
 				decision = 'last resort tile'
 			}
 			
-			// console.log(`Choice: ${choice}`)
 			if (myGeneralLocation === index){
 				is50 = true
 			}
 			pathToTarget.shift()
 			newArmyIndex = myMove
 			console.log(`-- ${data.turn} --`)
-			console.log(`I can see the following cities: ${visibleCities}. I may target cities at ${targetVisibleCity}. I can see a general at ${getTheGeneral || 'none'}`)
+			console.log('I can see the following cities:', visibleCities, 'I may target cities at', targetVisibleCity, 'I can see a general at', getTheGeneral || "none")
 			console.log(`My path is ${pathToTarget || '(No path currently)'}`)
 			console.log(`I'm moving my army from ${index} to ${myMove}. This choice was made to go after a(n) ${decision}`)
 
