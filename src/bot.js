@@ -225,6 +225,7 @@ socket.on('game_update', function(data) {
 			console.log(`I have saved moves from a previous target. Moving from: ${newArmyIndex} to ${next}`)
 			socket.emit('attack', newArmyIndex, next, is50)
 			newArmyIndex = next
+			myMove = next
 			break
 		} else {
 			// Pick a random tile.
