@@ -185,8 +185,13 @@ socket.on('game_start', function(data) {
 let enemyGenerals
 let savedGenerals = []
 var myMove
+var index
+var armies
+var biggestArmySize
+var biggestArmyIndex
 
 socket.on('game_update', function(data) {
+	console.log(`-- ${data.turn} --`)
 	// Patch the city and map diffs into our local variables.
 	cities = patch(cities, data.cities_diff);
 	map = patch(map, data.map_diff);
@@ -202,7 +207,7 @@ socket.on('game_update', function(data) {
 	
 	// The next |size| terms are army values.
 	// armies[0] is the top-left corner of the map.
-	var armies = map.slice(2, mapSize + 2);
+	armies = map.slice(2, mapSize + 2);
 
 	// The last |size| terms are terrain values.
 	// terrain[0] is the top-left corner of the map.
@@ -221,7 +226,6 @@ socket.on('game_update', function(data) {
 
 		if (pathToTarget.length > 0 && terrain[newArmyIndex] === playerIndex){
 			var next = pathToTarget.shift()
-			console.log(`-- ${data.turn} --`)
 			console.log(`I have saved moves from a previous target. Moving from: ${newArmyIndex} to ${next}`)
 			socket.emit('attack', newArmyIndex, next, is50)
 			newArmyIndex = next
@@ -243,9 +247,9 @@ socket.on('game_update', function(data) {
 				}
 			})
 			
-			var biggestArmySize = armies[myOccupiedTerrain[0]]
+			biggestArmySize = armies[myOccupiedTerrain[0]]
 			// console.log(`Biggest Size Army: ${biggestArmySize}`)
-			var biggestArmyIndex = myOccupiedTerrain[0]
+			biggestArmyIndex = myOccupiedTerrain[0]
 			
 			// console.log(`BiggestIndex: ${biggestArmyIndex}`)
 
@@ -256,8 +260,8 @@ socket.on('game_update', function(data) {
 				}
 			})
 			terrain[newArmyIndex] === playerIndex && armies[newArmyIndex] > 1 ? biggestArmyIndex = newArmyIndex : null
-			var index = armies[myMove] > 1 ? myMove : biggestArmyIndex
-			console.log('armies', armies[myMove], 'index', index)
+			index = armies[myMove] > 1 ? myMove : biggestArmyIndex
+			console.log('armies', armies[myMove], 'index', index, 'myMove', myMove)
 			var options = possibleMovesFromLocation(index)
 			var getTheGeneral = false
 			var getTheArmy = false
@@ -337,7 +341,6 @@ socket.on('game_update', function(data) {
 			}
 			pathToTarget.shift()
 			newArmyIndex = myMove
-			console.log(`-- ${data.turn} --`)
 			console.log('I can see the following cities:', visibleCities, 'I may target cities at', targetVisibleCity, 'I can see a general at', getTheGeneral || "none")
 			console.log(`My path is ${pathToTarget || '(No path currently)'}`)
 			console.log(`I'm moving my army from ${index} to ${myMove}. This choice was made to go after a(n) ${decision}`)
