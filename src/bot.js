@@ -189,6 +189,7 @@ var index
 var armies
 var biggestArmySize
 var biggestArmyIndex
+let generalRow, generalColumn
 
 socket.on('game_update', function(data) {
 	console.log(`-- ${data.turn} --`)
@@ -202,7 +203,7 @@ socket.on('game_update', function(data) {
 	mapHeight = map[1];
 	mapSize = mapWidth * mapHeight;
 	myGeneralLocationKnown ? null : myGeneralLocation = generals.filter(el => el > 0)[0]
-	
+	generalRow ? null : [generalRow, generalColumn] = getRowCol(myGeneralLocation)
 	// console.log(myGeneralLocation)
 	
 	// The next |size| terms are army values.
@@ -266,7 +267,7 @@ socket.on('game_update', function(data) {
 			var getTheGeneral = false
 			var getTheArmy = false
 			var getTheCity = false
-			var smallestEnemyArmy
+			var smallestEnemyArmyScore
 			var visibleCities
 			var targetVisibleCity = []
 			if(enemyGenerals[0]){
@@ -289,19 +290,29 @@ socket.on('game_update', function(data) {
 			if(targetVisibleCity[0]){
 				getTheCity = targetVisibleCity[0]
 			}
-			
+			let override
 			if(enemyTerrain[0]){
-				smallestEnemyArmy = armies[enemyTerrain[0]]
+				smallestEnemyArmyScore = armies[enemyTerrain[0]]
 				getTheArmy = enemyTerrain[0]
-				
 				enemyTerrain.forEach(el => {
-					if(armies[el] < smallestEnemyArmy){
-						smallestEnemyArmy = armies[el]
+					var [moveRow, moveCol] = getRowCol(el)
+					var armyScore = armies[el]
+					var distanceScore = Math.abs(generalRow - moveRow) + Math.abs(generalColumn - moveCol)
+					if((armyScore - distanceScore) < smallestEnemyArmyScore){
+						smallestEnemyArmyScore = armyScore - distanceScore
 						getTheArmy = el
+					}
+					if(distanceScore < 7){
+						override = 0
+						if(armyScore > armies[override]){
+							override = el
+						}
 					}
 				})
 			}
-			
+			if(override){
+				getTheArmy = override
+			}
 			// console.log(`Options: ${options}`)
 			var targetOptions = options.filter(el => terrain[el] !== -2 && terrain[el] !== playerIndex && terrain[el] > 0)
 			// console.log(targetOptions)
